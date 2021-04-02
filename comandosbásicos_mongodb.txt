@@ -1,0 +1,62 @@
+# vamos ver os principais comandos do mongodb
+# para criar uma nova base de dados temos que usar o comando use e acrescentar
+# o nome da base que queremos criar
+
+use basededados
+
+# porém, se utilizarmos o comando "show dbs" a nova base não irá aparecer a não
+# ser que acrescentarmos algum dados
+# acrescentamos um documento à base de dados utilizando o seguinte comando:
+# db.<collection>.insert
+# vamos escolher o nome user para a coleção, lembrando que uma base de dados pode
+# ter várias coleções sendo que, cada "dicionário" é um documento.
+
+db.user.insert({nome: "Cássio Freitas Daldegan", idade: 25})
+
+# lembrando que uma uma base de dados pode apresentar várias coleções
+# agora, quando digitamos "show dbs" vemos a nossa base de dados
+
+show dbs
+
+# se quisermos saber em qual base de dados estamos trabalhando, basta utilizar
+# o comando db
+
+db
+
+# para saber os dados de uma coleção específica da base de dados, utilizamos o
+# seguinte comando
+
+db.<collection>.find()
+db.user.find()
+
+# vamos acrescentar mais dados à coleção user
+
+db.user.insert({nome: "Fubá", idade: 5})
+
+# vamos procurar apenas documentos que tenham um par específico de chave-valor
+
+db.user.find({nome:"Fubá"})
+
+# vamos criar mais uma coleção
+
+db.user2.insert({"galinha":"bípede","cavalo":"quadrúpede"})
+db.user2.insert({"homem":"bípede","cachorro":"quadrúpede"})
+db.user2.insert({"timão":"bípede","cachorro":"quadrúpede"})
+
+# Para deletar um documento específico podemos deletar o primeiro documento que
+# tenha os conjuntos chave-valor que especificarmos
+
+db.user2.deleteOne({"galinha":"bípede"} )
+
+# Já no comando abaixo, deletamos todos os documentos que tenham o conjunto chave-
+# valor que especificamos
+
+db.user2.deleteMany({"cachorro":"quadrúpede"})
+
+# para deletar uma coleção específica, devemos usar o comando abaixo
+
+db.user.drop()
+
+# para ver todas as coleções da nossa base de dados devemos utilizar o comando
+
+show collections
