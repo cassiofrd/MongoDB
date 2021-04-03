@@ -1,0 +1,92 @@
+# vamos criar uma base de dados chamada dados_pessoais e a coleção info
+
+use dados_pessoais
+
+db.info.insert({nome: "Cássio Freitas Daldegan",
+	idade: 30,
+	altura: 1.71,
+	peso: 53,
+	"tem cachorro": "sim",
+	"é careca": "não"})
+
+db.info.insert({nome: "Joseph Sebastião",
+	idade: 22,
+	altura: 1.81,
+	peso: 73,
+	"tem cachorro": "não",
+	"é careca": "sim"})
+
+db.info.insert({nome: "Cavalo de Fogo",
+	idade: 17,
+	altura: 1.85,
+	peso: "não sei",
+	"tem cachorro": "não",
+	"é careca": "não"})
+
+db.info.insert({nome: "Irena",
+	idade: 67,
+	altura: 1.65,
+	peso: 83,
+	"tem cachorro": "sim",
+	"é careca": "não"})
+
+db.info.insert({nome: "Sueko Tanizaki",
+	idade: 42,
+	altura: 1.61,
+	peso: 53,
+	"tem cachorro": "sim",
+	"é careca": "não"})
+
+db.info.insert({nome: "Marrone",
+	idade: 52,
+	altura: 1.78,
+	peso: 84,
+	"tem cachorro": "sim",
+	"é careca": "sim"})
+
+# para deletar uma base de dados, no caso dados_pessoais, usamos
+
+# dados_pessoais.dropDatabase()
+
+# para deletar uma coleção, no caso "info", fazemos
+
+# db.info.drop()
+
+# acrescentar um documento a uma coleção já sabemos, pois acrescentamos vários
+# logo acima
+
+# para encontrar um documento com um valor específico
+
+db.info.find({"tem cachorro":"sim"})
+
+# para ver os dados pesquisados em formato mais amigável, façamos
+
+db.info.find({"tem cachorro":"sim"}).pretty()
+
+# se tivermos um número muito grande de observações, podemos limitar o número de
+# resultados mostrados
+
+db.info.find({"tem cachorro":"sim"}).limit(2)
+db.info.find({"tem cachorro":"sim"}).limit(2).pretty()
+
+# com sort() conseguimos ordenar os resultados de acorde com a key que quisérmos
+# se utilizarmos 1 o resultado estará em ordem crescente, se -1 decrescente
+
+db.info.find().sort({idade:1}).pretty()
+
+# agora vamos utilizar o agregate para somar alguns valores
+# o comando abaixo permite calcular o número de documentos na coleção info
+# aggregate me permite fazer muita coisa, mais agora estou com dificuldade, depois
+# tenho que olhar com mais calma
+
+db.info.aggregate([
+	{
+	$group: {
+	_id: null,
+	count: { $sum: 1 }
+	}
+	}
+])
+
+# agora a próxima fórmula permite calcular o número de observações que tem e não
+# tem cachorro
